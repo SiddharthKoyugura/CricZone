@@ -48,6 +48,8 @@ class Player(db.Model):
     nationality = db.Column(db.Integer, nullable=False)
     score = db.Column(db.Integer, default=0)
     wickets = db.Column(db.Integer, default=0)
+    sixes = db.Column(db.Integer, default=0)
+    fours = db.Column(db.Integer, default=0)
     dob = db.Column(db.Text, nullable=False)
 
 class Team(db.Model):
@@ -62,6 +64,7 @@ class Team(db.Model):
 
 with app.app_context():
     db.create_all()
+
 
 
 # Forms
@@ -104,17 +107,35 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
+    # teams = ["RR", "LSG", "GT", "CSK", "RCB", "PBKS", "KKR", "MI", "SRH", "DC"]
+    # for i in range(10):
+    #     new_team = Team(team=teams[i])
+    #     db.session.add(new_team)
+    #     db.session.commit()
     return render_template("index.html", current_user=current_user, is_logged=current_user.is_authenticated)
 
-@app.route("/table", methods=["GET", "POST"])
+@app.route("/table")
 def table():
-    if request.method == "POST":
-        return redirect("table")
-    return render_template("tables-general.html", current_user=current_user, is_logged=current_user.is_authenticated)
+    tables = Team.query.order_by(Team.win.desc()).all()
+    return render_template("tables-general.html", tables=tables, current_user=current_user, is_logged=current_user.is_authenticated)
+
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit(id):
+    team = Team.query.get(id)
+    if request.method=="POST":
+        team.win = request.form.get("won")
+        team.loss = request.form.get("loss")
+        team.nrr += 1.234 * int(team.win)
+        team.nrr -= 1.234 * int(team.loss)
+        db.session.commit()
+        return redirect(url_for('table'))
+    return render_template("edit-team.html", team=team, current_user=current_user, is_logged=current_user.is_authenticated)
 
 @app.route("/chart")
 def chart():
-    return render_template("charts.html", current_user=current_user, is_logged=current_user.is_authenticated)
+    players = Player.query.order_by(Player.sixes.asc()).all()
+    players1 = Player.query.order_by(Player.fours.asc()).all()
+    return render_template("charts.html",players=players[:3], players1=players1, current_user=current_user, is_logged=current_user.is_authenticated)
 
 @app.route("/profile")
 @login_required
@@ -166,7 +187,9 @@ def add_players():
             nationality = request.form.get("nationality"),
             score = int(request.form.get("score")),
             wickets = int(request.form.get("wickets")),
-            dob = request.form.get("dob")
+            dob = request.form.get("dob"),
+            sixes = request.form.get("sixes"), 
+            fours = request.form.get("fours")
         )
         db.session.add(new_player)
         db.session.commit()

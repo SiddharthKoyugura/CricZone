@@ -3,18 +3,10 @@
   <main id="main" class="main">
 
     <section class="section">
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-            <h1 style="color: red;">{{ message }}</h1>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-      
       <div class="row">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Previous Records</h5>
+              <h5 class="card-title">POINTS TABLE</h5>
 
               <!-- Table with hoverable rows -->
               <table class="table table-hover">
@@ -33,21 +25,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>CSK</td>
-                    <td>8</td>
-                    <td>4</td>
-                    <td>4</td>
-                    <td>8</td>
-                    <td>1.452</td>
-                    <td><a href="" class="btn btn-primary">Edit</a></td>
-                  </tr>
-                    {% for query in queries: %}
+                    {% for i in range(10): %}
                       <tr>
-                        <th scope="row">{{ query["s.no"] }}</th>
-                        <td>{{ query["query"] }}</td>
-                        <td>{{ query["result"] }}</td>
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>{{ tables[i]["team"] }}</td>
+                        <td>{{ tables[i]["win"] + tables[i]["loss"] }}</td>
+                        <td>{{ tables[i]["win"] }}</td>
+                        <td>{{ tables[i]["loss"] }}</td>
+                        <td>{{ tables[i]["win"]*2 }}</td>
+                        <td>{{ tables[i]["nrr"] }}</td>
+                        {% if is_logged: %}
+                          <td><a href="{{ url_for('edit', id=tables[i]['id']) }}" class="btn btn-primary">Edit</a></td>
+                        {% endif %}
                       </tr>
                     {% endfor %}
                 </tbody>
