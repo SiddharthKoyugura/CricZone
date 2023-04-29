@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>PlanetConscious</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename ='vendor/quill/quill.snow.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename ='vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename ='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename ='vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
+        <svg width="40" height="40" viewBox="0 0 81 71" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_11_8)">
+          <path d="M5.06251 35.4911C5.03776 27.4967 8.53132 19.8019 14.816 14.0085C21.1006 8.21503 29.6922 4.76927 38.8022 4.38848C47.9123 4.00768 56.8389 6.72118 63.724 11.9641C70.6091 17.2071 74.9221 24.5756 75.7654 32.5357C74.7437 32.2916 73.7158 32.0682 72.6823 31.8657C67.2175 30.7673 61.5759 30.5135 56.0115 31.1157C53.7992 31.3598 51.7084 31.737 49.7391 32.2606C49.4775 31.7624 49.2057 31.2682 48.924 30.7785C48.5743 30.1764 48.2417 29.5668 47.9267 28.9502C47.4812 28.0627 46.9952 26.909 47.0813 25.6842C47.1825 24.2642 48.0026 23.1105 49.3239 22.2407C50.9288 21.1846 52.9487 18.7662 54.6902 16.3211C55.5306 15.1541 56.2444 14.058 56.7506 13.2592L56.8671 13.0729C51.9813 10.3238 46.2956 8.86645 40.4899 8.875H40.2469C40.7076 9.67375 41.2138 10.6278 41.6694 11.6884C42.9047 14.555 44.0184 18.7529 42.0289 22.4626C40.2013 25.8795 37.0474 26.767 34.6883 27.2995L34.3491 27.3749C32.0558 27.8941 31.1091 28.1071 30.4206 29.0168C29.7827 29.8688 29.8991 30.9382 30.6231 33.0106L30.7901 33.4765C31.0787 34.2841 31.4229 35.2426 31.6001 36.1479C31.8229 37.275 31.8836 38.6861 31.0736 40.0529C30.3836 41.2741 29.2851 42.2818 27.9248 42.9417C26.8698 43.411 25.7343 43.7258 24.5633 43.8736L24.219 43.9268C22.4066 44.2064 21.4853 44.3484 20.5993 45.1782C19.9058 45.8305 19.4754 46.9621 19.2274 48.6039C19.1261 49.274 19.0603 49.9396 18.9996 50.6274L18.9641 50.9913C18.9089 51.7813 18.7922 52.5671 18.6148 53.3432L18.4883 53.8313C21.62 56.7223 25.452 58.9606 29.7017 60.3811C28.7499 61.6236 27.8691 62.9104 27.0489 64.2328C20.5451 61.8939 14.9819 57.9122 11.0668 52.7942C7.15167 47.6762 5.06164 41.6532 5.06251 35.4911ZM80.6203 38.7749C80.3942 38.4526 80.0778 38.1865 79.7012 38.0016C79.3246 37.8168 78.9004 37.7194 78.4688 37.7187H78.4283C78.2293 37.6973 78.0317 37.6677 77.8359 37.63C77.3281 37.5243 76.8234 37.4074 76.3223 37.2794L75.8413 37.1641C74.4329 36.8061 73.0132 36.4835 71.5838 36.1967C66.6855 35.2086 61.6278 34.9788 56.6393 35.5177C50.5541 36.1834 45.9017 37.9939 42.7275 40.5854C39.5381 43.1991 37.9688 46.5183 37.9688 49.9041C37.9688 50.7162 38.0396 51.4883 38.1611 52.2116C43.4768 48.1469 50.0327 44.8587 57.2771 42.316C57.5859 42.2076 57.9161 42.1536 58.2487 42.157C58.5813 42.1605 58.9099 42.2213 59.2157 42.3361C59.5215 42.4508 59.7985 42.6173 60.0309 42.8259C60.2634 43.0345 60.4466 43.2812 60.5703 43.5518C60.6939 43.8225 60.7556 44.1119 60.7516 44.4035C60.7477 44.695 60.6783 44.983 60.5474 45.2511C60.4165 45.5191 60.2266 45.762 59.9886 45.9657C59.7506 46.1694 59.4692 46.33 59.1604 46.4384C55.1256 47.854 51.3945 49.487 48.033 51.3286C39.6698 55.6063 34.4604 61.0999 30.6433 67.7917C30.4824 68.0532 30.3831 68.3404 30.3512 68.6363C30.3194 68.9321 30.3556 69.2305 30.4578 69.5138C30.5601 69.7971 30.7262 70.0596 30.9463 70.2855C31.1664 70.5115 31.4361 70.6964 31.7393 70.8293C32.0425 70.9622 32.373 71.0403 32.7114 71.0591C33.0497 71.0779 33.3888 71.0369 33.7087 70.9386C34.0286 70.8403 34.3228 70.6867 34.5736 70.4868C34.8245 70.287 35.027 70.045 35.1692 69.7752C37.1132 66.3761 39.4369 63.3187 42.4997 60.5985C43.3128 61.8975 44.304 63.1046 45.4511 64.1929C47.8001 66.4116 51.5919 68.7812 56.9531 68.7812C60.2539 68.7812 62.9978 68.0446 65.2455 66.7577C67.473 65.4886 69.0829 63.7624 70.2878 61.9519C72.1508 59.1563 73.2189 55.8282 74.0087 53.3609C74.2112 52.7397 74.3884 52.1761 74.5605 51.688C75.4363 49.1852 76.7171 46.9399 77.9018 45.1027C78.4991 44.1886 79.0611 43.3854 79.5471 42.7021L79.6281 42.5867C80.021 42.0481 80.3892 41.4959 80.7317 40.9315C80.9241 40.5934 81.0149 40.2179 80.9954 39.8405C80.9759 39.4631 80.8468 39.0963 80.6203 38.7749Z" fill="#006A32"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_11_8">
+          <rect width="81" height="71" fill="white"/>
+          </clipPath>
+          </defs>
+          </svg>
+          
+          
+        <span class="d-none d-lg-block" style="color:#5cd749;">PlanetConscious</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="{{ url_for('table') }}">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ current_user.name.title() }}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ current_user.name.title() }}</h6>
+              <span>User</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{{ url_for('profile') }}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{{ url_for('profile') }}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{{ url_for('home') }}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('table') }}">
+              <i class="bi bi-layout-text-window-reverse"></i>
+              <span>Activity</span>
+        </a>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('chart') }}">
+          <i class="bi bi-bar-chart"></i><span>Stats</span>
+        </a>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('blog') }}">
+          <i class="bi bi-book"></i><span>Blog</span>
+        </a>
+      </li><!-- End Blogs Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ url_for('profile') }}">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ url_for('logout') }}">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

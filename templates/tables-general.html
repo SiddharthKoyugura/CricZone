@@ -1,0 +1,72 @@
+{% include "header.html" %}
+
+  <main id="main" class="main">
+
+    <section class="section">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <h1 style="color: red;">{{ message }}</h1>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+      
+      <div class="row">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Previous Records</h5>
+
+              <!-- Table with hoverable rows -->
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Query</th>
+                    <th scope="col">Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Non-Recyclable Plastic Wrap</td>
+                    <td>Beeswax Food Wraps</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Synthetic Pillows</td>
+                    <td>Buckwheat Pillows</td>
+                  </tr>
+                    {% for query in queries: %}
+                      <tr>
+                        <th scope="row">{{ query["s.no"] }}</th>
+                        <td>{{ query["query"] }}</td>
+                        <td>{{ query["result"] }}</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <form class="row g-3 needs-validation" action="{{ url_for('table') }}" method="post" novalidate>
+
+      <div class="col-12">
+        <label for="yourEmail" class="form-label">Query</label>
+        <input type="text" name="query" class="form-control" id="yourEmail" required>
+        <div class="invalid-feedback">Please fill out this section</div>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary w-100" type="submit">Get ALternatives!</button>
+      </div>
+    </form>
+
+  </main><!-- End #main -->
+
+{% include "footer.html" %}
