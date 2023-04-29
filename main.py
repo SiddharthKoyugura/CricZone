@@ -35,6 +35,7 @@ class BlogPost(db.Model):
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
+    writer=db.Column(db.Text, nullable=False)
 
 with app.app_context():
     db.create_all()
@@ -109,6 +110,7 @@ def add_blog():
             title=form.title.data,
             subtitle=form.subtitle.data,
             body=form.body.data,
+            writer=current_user.name,
         )
         db.session.add(new_post)
         db.session.commit()
