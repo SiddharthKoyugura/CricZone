@@ -19,7 +19,7 @@ body {
 }
 
 a {
-  color: #5cd749;
+  color: #d02a00;
   text-decoration: none;
 }
 
@@ -67,7 +67,7 @@ h6 {
 }
 
 .bi{
-  color: rgba(78, 203, 113, 1);
+  color: #d02a00;
 }
 /*--------------------------------------------------------------
 # Back to top button
@@ -705,7 +705,7 @@ svg{
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: rgba(78, 203, 113, 1);
+  color: rgb(220, 123, 34);
   transition: 0.3;
   background: #f6f9ff;
   padding: 10px 15px;
@@ -715,7 +715,7 @@ svg{
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  color: rgba(78, 203, 113, 1);
+  color: rgb(220, 123, 34);
 }
 
 .sidebar-nav .nav-link.collapsed {
@@ -847,7 +847,7 @@ svg{
 }
 
 .dashboard .revenue-card .card-icon {
-  color: #2eca6a;
+  color: #d02a00;
   background: #e0f8e9;
 }
 
