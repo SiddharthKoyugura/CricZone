@@ -44,6 +44,7 @@ class Player(db.Model):
     name = db.Column(db.Text, nullable=False)
     role = db.Column(db.Text, nullable=False)
     team = db.Column(db.Text, nullable=False)
+    image = db.Column(db.LargeBinary, nullable=False)
     nationality = db.Column(db.Integer, nullable=False)
     score = db.Column(db.Integer, default=0)
     wickets = db.Column(db.Integer, default=0)
@@ -62,6 +63,7 @@ class Team(db.Model):
 with app.app_context():
     db.create_all()
 
+
 # Forms
 class CreatePostForm(FlaskForm):
     title = StringField("Blog Post Title", validators=[DataRequired()])
@@ -76,12 +78,6 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-
-# queries = []
-# query_data = pd.read_csv("data.csv", error_bad_lines=False, header=None, index_col=0, squeeze = True)
-# query_data =query_data.drop_duplicates()
-# query_data = query_data.to_dict()
-
 
 @app.route("/")
 def home():
@@ -124,12 +120,31 @@ def add_blog():
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('blog'))
-    return render_template("add-blog.html", form=form)
+    return render_template("add-blog.html", form=form, is_logged=current_user.is_authenticated)
 
 @app.route("/post/<int:post_id>")
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
-    return render_template("post.html", post=requested_post)
+    return render_template("post.html", post=requested_post, is_logged=current_user.is_authenticated)
+
+# Table section
+@app.route("/add-players", methods=["GET", "POST"])
+def add_players():
+    if request.method=="POST":
+        image = request.files["image"]
+        new_player = Player(
+            name= request.form.get("name"),
+            role = request.form.get("role"),
+            team = current_user.team,
+            image = image.read(),
+            nationality = request.form.get("nationality"),
+            score = int(request.form.get("score")),
+            wickets = int(request.form.get("wickets")),
+            dob = request.form.get("dob")
+        )
+        db.session.add(new_player)
+        db.session.commit()
+    return render_template("add_players.html",is_logged=current_user.is_authenticated)
 
 # User-Authentication
 

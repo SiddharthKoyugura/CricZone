@@ -151,6 +151,12 @@
 
       {% if is_logged: %}
         <li class="nav-item">
+          <a class="nav-link collapsed" href="{{ url_for('add_players') }}">
+            <i class=""></i>
+            <span>Add Players</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link collapsed" href="{{ url_for('profile') }}">
             <i class="bi bi-person"></i>
             <span>Profile</span>

@@ -1,0 +1,89 @@
+{% include "header.html" %}
+
+<main>
+    <div class="container-fluid">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Add Players</h5>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                          {% for message in messages %}
+                              <p class="text-center bg-danger small">{{ message }}</p>
+                          {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                  </div>
+
+                  <form class="row g-3 needs-validation" action="{{ url_for('add_players') }}" method="post" enctype="multipart/form-data" novalidate>
+
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">Name</label>
+                      <input type="text" name="name" class="form-control" id="yourEmail" required>
+                      <div class="invalid-feedback">Please enter your name</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="disabledSelect" class="form-label">Role</label>
+                        <select name="role" id="disabledSelect" class="form-select">
+                          <option value="Batsman">Batsman</option>
+                          <option value="Bowler">Bowler</option>
+                          <option value="All-Rounder">All-Rounder</option>
+                          <option value="Wicket-Keeper">Wicket-Keeper</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="disabledSelect" class="form-label">Nationality</label>
+                        <select name="nationality" id="disabledSelect" class="form-select">
+                          <option value="1">Indian</option>
+                          <option value="0">Foreign</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="score" class="form-label">Score</label>
+                        <input type="number" name="score" class="form-control" id="score">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="wickets" class="form-label">Wickets</label>
+                        <input type="number" name="wickets" class="form-control" id="wickets">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input type="date" name="dob" class="form-control" id="dob" required>
+                        <div class="invalid-feedback">Please enter player's DOB</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="image" class="form-label">Photo</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/x-png,image/gif,image/jpeg,image/jpg,image/png">
+                        <div class="invalid-feedback">No file Chosen</div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Submit</button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+</main><!-- End #main -->
+
+
+{% include "footer.html" %}
