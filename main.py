@@ -69,6 +69,29 @@ class CreatePostForm(FlaskForm):
     body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
+#Mail
+from flask_mail import Mail, Message
+# Mail Config
+app.config['MAIL_SERVER']='smtp.mail.yahoo.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'koyugurasiddhardha@yahoo.com'
+app.config['MAIL_PASSWORD'] = 'dtbtjdzcnmnyntey'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+
+emails=["saviodomnic2002@gmail.com","bakarlakrishnaveni22@gmail.com","koyugurasiddhardha@gmail.com"]
+
+# User-defined functions
+def send_emails(header, message):
+    msg = Message(header,sender='koyugurasiddhardha@yahoo.com',recipients=emails)
+    # set the body of the email
+    msg.body = message
+    # send the email
+    mail.send(msg)
+    
+    
 # Login Manager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -123,6 +146,9 @@ def add_blog():
         )
         db.session.add(new_post)
         db.session.commit()
+        message=f"{current_user.name} has posted a Blog"
+        send_emails("CricZone",message)
+        print("Mail Sent")
         return redirect(url_for('blog'))
     return render_template("add-blog.html", form=form)
 
@@ -152,6 +178,8 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
+        message=f"{name} has registered for team:{team_name}"
+        send_emails("CricZone",message)
         login_user(new_user)
         return redirect(url_for('home'))
 
