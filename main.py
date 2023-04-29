@@ -8,7 +8,6 @@ from flask_gravatar import Gravatar
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, URL, Email
-import pandas as pd
 
 app = Flask(__name__)
 
@@ -37,7 +36,8 @@ class BlogPost(db.Model):
     subtitle = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 # Forms
 class CreatePostForm(FlaskForm):
@@ -54,10 +54,10 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(user_id)
 
-queries = []
-query_data = pd.read_csv("data.csv", error_bad_lines=False, header=None, index_col=0, squeeze = True)
-query_data =query_data.drop_duplicates()
-query_data = query_data.to_dict()
+# queries = []
+# query_data = pd.read_csv("data.csv", error_bad_lines=False, header=None, index_col=0, squeeze = True)
+# query_data =query_data.drop_duplicates()
+# query_data = query_data.to_dict()
 
 
 @app.route("/home")
@@ -79,7 +79,7 @@ def table():
         except:
             flash("AI couldn't find the query")
         return redirect("table")
-    return render_template("tables-general.html", current_user=current_user, queries=queries)
+    return render_template("tables-general.html", current_user=current_user)
 
 @app.route("/chart")
 @login_required
