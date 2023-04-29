@@ -21,20 +21,27 @@
                 <thead>
                   <tr>
                     <th scope="col">S.No</th>
-                    <th scope="col">Query</th>
-                    <th scope="col">Result</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Played</th>
+                    <th scope="col">Won</th>
+                    <th scope="col">Lost</th>
+                    <th scope="col">Points</th>
+                    <th scope="col">NRR</th>
+                    {% if is_logged: %}
+                      <th scope="col">Edit</th>
+                    {% endif %}
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td>Non-Recyclable Plastic Wrap</td>
-                    <td>Beeswax Food Wraps</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Synthetic Pillows</td>
-                    <td>Buckwheat Pillows</td>
+                    <td>CSK</td>
+                    <td>8</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>8</td>
+                    <td>1.452</td>
+                    <td><a href="" class="btn btn-primary">Edit</a></td>
                   </tr>
                     {% for query in queries: %}
                       <tr>
@@ -54,18 +61,6 @@
         </div>
       </div>
     </section>
-    <form class="row g-3 needs-validation" action="{{ url_for('table') }}" method="post" novalidate>
-
-      <div class="col-12">
-        <label for="yourEmail" class="form-label">Query</label>
-        <input type="text" name="query" class="form-control" id="yourEmail" required>
-        <div class="invalid-feedback">Please fill out this section</div>
-      </div>
-
-      <div class="col-12">
-        <button class="btn btn-primary w-100" type="submit">Get ALternatives!</button>
-      </div>
-    </form>
 
   </main><!-- End #main -->
 

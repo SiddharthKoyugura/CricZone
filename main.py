@@ -28,13 +28,35 @@ class User(UserMixin, db.Model):
     name = db.Column(db.Text, unique=True, nullable=False)
     email = db.Column(db.Text, unique=True, nullable=False)
     password = db.Column(db.Text, nullable=False)
+    team = db.Column(db.Text, nullable=False)
 
 class BlogPost(db.Model):
-    __tablename__ = "blog_posts"
+    __tablename__ = "Blog_posts"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
+
+class Player(db.Model):
+    __tablename__="players"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False)
+    role = db.Column(db.Text, nullable=False)
+    team = db.Column(db.Text, nullable=False)
+    nationality = db.Column(db.Integer, nullable=False)
+    score = db.Column(db.Integer, default=0)
+    wickets = db.Column(db.Integer, default=0)
+    dob = db.Column(db.Text, nullable=False)
+
+class Team(db.Model):
+    __tablename__="Teams"
+    id = db.Column(db.Integer, primary_key=True)
+    team = db.Column(db.Text, nullable=False)
+    win = db.Column(db.Integer, default=0)
+    loss = db.Column(db.Integer, default=0)
+    nrr = db.Column(db.Float, default=0)
+    sixes = db.Column(db.Integer, default=0)
+    fours = db.Column(db.Integer, default=0)
 
 with app.app_context():
     db.create_all()
@@ -60,45 +82,32 @@ def load_user(user_id):
 # query_data = query_data.to_dict()
 
 
-@app.route("/home")
-@login_required
+@app.route("/")
 def home():
-    return render_template("index.html", current_user=current_user)
+    return render_template("index.html", current_user=current_user, is_logged=current_user.is_authenticated)
 
 @app.route("/table", methods=["GET", "POST"])
-@login_required
 def table():
     if request.method == "POST":
-        query = request.form.get("query").title()
-        try:
-            queries.append({
-                "s.no":len(queries)+3,
-                "query":query,
-                "result":query_data[query]
-                })
-        except:
-            flash("AI couldn't find the query")
         return redirect("table")
-    return render_template("tables-general.html", current_user=current_user)
+    return render_template("tables-general.html", current_user=current_user, is_logged=current_user.is_authenticated)
 
 @app.route("/chart")
-@login_required
 def chart():
-    return render_template("charts.html", current_user=current_user)
+    return render_template("charts.html", current_user=current_user, is_logged=current_user.is_authenticated)
 
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html", current_user=current_user)
+    return render_template("profile.html", current_user=current_user, is_logged=current_user.is_authenticated)
 
 @app.route("/blog")
-@login_required
 def blog():
     try:
         posts = BlogPost.query.all()
     except:
         posts = None
-    return render_template("blogs.html", current_user=current_user, all_posts=posts)
+    return render_template("blogs.html", current_user=current_user, is_logged=current_user.is_authenticated, all_posts=posts)
 
 @app.route("/add-blog", methods=["GET", "POST"])
 @login_required
@@ -122,7 +131,7 @@ def show_post(post_id):
 
 # User-Authentication
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         email = request.form.get("email")
@@ -132,10 +141,12 @@ def register():
             return redirect(url_for('login'))
 
         name, password = request.form.get("name"), request.form.get("password")
+        team_name = request.form.get("teamName")
         new_user = User(
             name = name,
             email = email,
             password = password,
+            team=team_name,
         )
         db.session.add(new_user)
         db.session.commit()
